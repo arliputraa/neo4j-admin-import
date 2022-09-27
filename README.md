@@ -20,7 +20,8 @@ Example:
 	--relationships=send=/home/arliputraa/neo4j-enterprise-4.4.10/import/header/rel/rel_send.txt,/home/arliputraa/neo4j-enterprise-4.4.10/import/data/transaction/awk_dm_transaction_20210101.txt \
 	--relationships=receive=/home/arliputraa/neo4j-enterprise-4.4.10/import/header/rel/rel_receive.txt,/home/arliputraa/neo4j-enterprise-4.4.10/import/data/transaction/awk_dm_transaction_20210101.txt  
 
-nama nodes=path file header/filebaru.csv,file path data.csv
+
+--nodes/relationships=<label>=<location path file header>,<location path file data>
 
 * buat nodesnya
 
