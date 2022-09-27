@@ -1,46 +1,26 @@
-# Admin Import Neo4j
+# Neo4j-Admin Import
 
-* drag file ke FileZilla
-
-sebelumnya masukkan ip/host, Username, password, dan port kemudian Quickconnect
+* insert data file .csv to server via FileZilla
 
 <img width="591" alt="image" src="https://user-images.githubusercontent.com/110078907/181160672-2e254e80-d5cb-43fd-80af-aa5d0518c66e.png">
 
-* masuk ke terminal
-
-cara connect ssh "ssh ddi@192.168.18.115" password "...."
+* connect your ssh/server 
 
 ![image](https://user-images.githubusercontent.com/110078907/181174431-40fbbdfa-2fa7-48d1-a7ff-50ee938ff512.png)
 
-* masuk ke directory neo4j (command: cd namadirectory) -> buat directory header 
+* go to path file /home/neo4j-enterprise-4.4.8 and create directory header for data file
 
-head -1 namafileyangingindirubah.csv > /home/ddi/neo4j-enterprise-4.4.8/import/data_bank/header/file baru header_.csv
+* create script neo4j-admin import in your text editor
 
-* pindahkan ke directory header
+Example:
 
-buat directory dahulu (command: mkdir header)
+	./neo4j-admin import --database='Januari2021' --force --delimiter=',' --skip-duplicate-nodes --ignore-empty-strings --skip-bad-relationships --processors=6 \
+	--nodes=Customer=/home/arliputraa/neo4j-enterprise-4.4.10/import/header/node/cusinfo.txt,/home/arliputraa/neo4j-enterprise-4.4.10/import/data/customer/cusinfo_202101_final.txt \
+	--nodes=Transaction=/home/arliputraa/neo4j-enterprise-4.4.10/import/header/node/dm_transaction.txt,/home/arliputraa/neo4j-enterprise-4.4.10/import/data/transaction/awk_dm_transaction_20210101.txt \
+	--relationships=send=/home/arliputraa/neo4j-enterprise-4.4.10/import/header/rel/rel_send.txt,/home/arliputraa/neo4j-enterprise-4.4.10/import/data/transaction/awk_dm_transaction_20210101.txt \
+	--relationships=receive=/home/arliputraa/neo4j-enterprise-4.4.10/import/header/rel/rel_receive.txt,/home/arliputraa/neo4j-enterprise-4.4.10/import/data/transaction/awk_dm_transaction_20210101.txt  
 
-selanjutnya mv header_yangingindipindahin.csv headertutut.csv header (tidak pakai',')
-
-* liat file path data (commad: pwd)
-
-liat file path header/ file baru.csv (command: pwd)
-
-* buat script admin import
-
-./neo4j-admin import --database=sosmed --force --delimiter="," --skip-duplicate-nodes --multiline-fields=true --skip-bad-relationships=True --bad-tolerance=40000 --cache-on-heap --skip-bad-entries-logging --ignore-empty-strings \
-
---nodes=user=/home/ddi/neo4j-enterprise-4.4.8/import/data/header/headeruser.csv,/home/ddi/neo4j-enterprise-4.4.8/import/data/users.csv \
-
---nodes=interests=/home/ddi/neo4j-enterprise-4.4.8/import/data/header/header_interests.csv,/home/ddi/neo4j-enterprise-4.4.8/import/data/interests.csv \
-
---relationships=People_Interests=/home/ddi/neo4j-enterprise-4.4.8/import/data/header/relation/header_people_interests.csv,/home/ddi/neo4j-enterprise-4.4.8/import/data/people_interests.csv \
-
---relationships=Has_Follow=/home/ddi/neo4j-enterprise-4.4.8/import/data/header/relation/header_followers.csv,/home/ddi/neo4j-enterprise-4.4.8/import/data/followers.csv \
-
---relationships=Refferals=/home/ddi/neo4j-enterprise-4.4.8/import/data/header/relation/header_referrals.csv,/home/ddi/neo4j-enterprise-4.4.8/import/data/referrals.txt \
-
-		nama nodes=path file header/filebaru.csv,file path data.csv
+nama nodes=path file header/filebaru.csv,file path data.csv
 
 * buat nodesnya
 
